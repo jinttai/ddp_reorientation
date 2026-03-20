@@ -12,17 +12,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Project root (CVAE)
-ROOT_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), "../.."))
+ROOT_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
-from ddp.src.ddp_casadi import load_robot_from_urdf, CasadiSpaceRobotDynamics
+from src.ddp_casadi import load_robot_from_urdf, CasadiSpaceRobotDynamics
 
 
 def main():
     # Paths
-    root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-    urdf_path = os.path.join(root_dir, "assets", "SC_ur10e.urdf")
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    urdf_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "SC_ur10e.urdf")
     results_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "results")
 
     # Load robot and dynamics

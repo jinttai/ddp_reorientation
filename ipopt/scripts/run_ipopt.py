@@ -12,16 +12,16 @@ import time
 import numpy as np
 import matplotlib.pyplot as plt
 
-ROOT_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), "../../.."))
+ROOT_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), "../.."))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
-from others.ipopt.src.nlp_ipopt import (
+from ipopt.src.nlp_ipopt import (
     load_robot_from_urdf,
     CasadiSpaceRobotDynamics,
     solve_ipopt,
 )
-from ddp.src.trajectory_utils import save_trajectory_csv
+from src.trajectory_utils import save_trajectory_csv
 
 
 def euler_to_quaternion(roll, pitch, yaw):

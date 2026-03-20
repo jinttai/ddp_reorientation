@@ -8,7 +8,7 @@ import os
 import matplotlib.pyplot as plt
 
 # Add project root to sys.path
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(ROOT_DIR)
 # We might need spart for accurate base velocity reconstruction if simple diff is not enough
 from src.dynamics import spart_functions as ft

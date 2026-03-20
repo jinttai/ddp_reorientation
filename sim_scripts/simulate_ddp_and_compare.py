@@ -12,7 +12,7 @@ import numpy as np
 import mujoco
 import matplotlib.pyplot as plt
 
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(ROOT_DIR)
 
 from scenario import SCENARIO, get_goal_quaternion
@@ -43,7 +43,7 @@ def quat_to_euler_xyzw(q):
 
 def main():
     # ── Load DDP results ──
-    results_dir = os.path.join(ROOT_DIR, 'ddp', 'results')
+    results_dir = os.path.join(ROOT_DIR, 'results')
     X_ddp = np.load(os.path.join(results_dir, 'trajectory_casadi_ddp_states.npy'))
     U_ddp = np.load(os.path.join(results_dir, 'trajectory_casadi_ddp_controls.npy'))
 
@@ -103,9 +103,9 @@ def main():
     dt_sim = model.opt.timestep  # 0.01s
     n_sim_steps = int(total_time / dt_sim)
 
-    # CTC gains
-    Kp = np.array([500.0] * 3 + [250.0] * 3)
-    Kd = np.array([50.0] * 3 + [25.0] * 3)
+    # CTC gains (tuned: Kp=700, Kd=1.5*sqrt(Kp))
+    Kp = np.full(n_q, 700.0)
+    Kd = np.full(n_q, 1.5 * np.sqrt(700.0))  # ~39.7
 
     # Set initial state
     data.qpos[0:3] = np.zeros(3)        # base position

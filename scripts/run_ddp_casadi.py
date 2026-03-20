@@ -13,18 +13,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Add project root to sys.path based on current file location
-ROOT_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), "../.."))
+ROOT_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), ".."))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
-from ddp.src.ddp_casadi import (
+from src.ddp_casadi import (
     load_robot_from_urdf,
     CasadiSpaceRobotDynamics,
     CasadiRunningCost,
     CasadiTerminalCost,
     CasadiDDP,
 )
-from ddp.src.trajectory_utils import save_trajectory_csv
+from src.trajectory_utils import save_trajectory_csv
 from scenario import SCENARIO, get_goal_quaternion, get_initial_state
 
 
@@ -102,7 +102,7 @@ def geodesic_distance_so3(R1, R2):
 
 
 def main():
-    root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    root_dir = os.path.dirname(os.path.dirname(__file__))
     urdf_path = os.path.join(root_dir, SCENARIO["urdf"])
 
     robot = load_robot_from_urdf(urdf_path)
@@ -167,7 +167,7 @@ def main():
     # ============================================================================
     # SWITCH: Choose between iLQR and DDP
     # ============================================================================
-    USE_ILQR = False  # Set to True for iLQR (faster), False for full DDP (slower, more accurate)
+    USE_ILQR = True  # Set to True for iLQR (faster), False for full DDP (slower, more accurate)
     USE_ALM = True   # Set to True to use Augmented Lagrangian Method for joint limits
     # ============================================================================
 
@@ -225,7 +225,7 @@ def main():
     final_joints = X_opt[-1, :n_q]
     joint_err_norm = np.linalg.norm(final_joints - goal_joints)
 
-    print(f"\nFinal orientation error: {orient_err_deg:.2f}°")
+    print(f"\nFinal orientation error: {orient_err_deg:.5e}°")
     print(f"Final joint position error (||q_final - q_goal||): {joint_err_norm:.4f} rad")
 
     # --- Save Results ---

@@ -4,7 +4,7 @@ import numpy as np
 import mujoco
 
 # Add project root to sys.path
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(ROOT_DIR)
 from src.dynamics.urdf2robot import urdf2robot
 import src.dynamics.spart_functions as ft
